@@ -1,0 +1,34 @@
+import("libs/std");
+import("libs/winui");
+
+Window[title: string, width: int, height: int] {
+    list<int> bg = [0, 0, 0];
+    string _windw_uilib = winui.init(cls.title, cls.width, cls.height);
+
+    void background(r: int, g: int, b: int) {
+        cls.bg = [r, g, b];
+        winui.background(cls._windw_uilib, r, g, b);
+    }
+
+    void clear() => winui.background(cls._windw_uilib, cls.bg[0], cls.bg[1], cls.bg[2]);
+    void update() => winui.update(cls._windw_uilib);
+    void close() => winui.close(cls._windw_uilib);
+
+    void pixel(x: int, y: int, r: int, g: int, b: int) => winui.pixel(cls._windw_uilib, x, y, r, g, b);
+    void line(x1: int, y1: int, x2: int, y2: int, width: int, r: int, g: int, b: int) => winui.line(cls._windw_uilib, x1, y1, x2, y2, width, r, g, b);
+    void rectangle(x: int, y: int, w: int, h: int, r: int, g: int, b: int, filled: bool) => winui.rectangle(cls._windw_uilib, x, y, w, h, r, g, b, filled);
+    void circle(x: int, y: int, radius: int, r: int, g: int, b: int, filled: bool) => winui.circle(cls._windw_uilib, x, y, radius, r, g, b, filled);
+    void triangle(x1: int, y1: int, x2: int, y2: int, x3: int, y3: int, r: int, g: int, b: int, filled: bool) => winui.triangle(cls._windw_uilib, x1, y1, x2, y2, x3, y3, r, g, b, filled);
+
+    list<dict<string, string>> get_events() => winui.get_events(cls._windw_uilib);
+    
+    bool check(inout running: bool, events: list<dict<string, string>>) {
+        for (event: dict<string, string>, events) {
+            if (event["name"] == "quit") {
+                running = false;
+            }
+        }
+
+        return running;
+    }
+}
